@@ -21,10 +21,31 @@ def scan(interface, ipRange, option) :
         print(g+"[*] 옵션 : 1~3초간 랜덤으로 간격을 두고 보낸다."+e)
         for i in range(len(ipList)) :
             time.sleep(random.randrange(1,4))
-            _ans, _unans = srp(Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst=ipList[i]), iface=interface, timeout=2)
+            _ans, _unans = srp(Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst=ipList[i]), iface=interface, timeout=0.2)
             if(_ans) : ans.append((_ans[0][0].pdst, _ans[0][1].src))
             if(_unans) : unans.append(_unans[0].pdst)
             if(i%10==0) : print(v+"[*] 현재 진행률 : "+str(int(i/len(ipList)*100))+"%"+e)
+    elif option=='2' :
+        print(g+"[*] 옵션 : ip주소를 순서대로 보내지 않고, 무작위로 보낸다."+e)
+        ipListLen = len(ipList)
+        for i in range(ipListLen) :
+            selNum = random.randrange(0, len(ipList))
+            _ans, _unans = srp(Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst=ipList[selNum]), iface=interface, timeout=0.2)
+            if(_ans) : ans.append((_ans[0][0].pdst, _ans[0][1].src))
+            if(_unans) : unans.append(_unans[0].pdst)
+            del ipList[selNum]
+            if(i%10==0) : print(v+"[*] 현재 진행률 : "+str(int(i/ipListLen*100))+"%"+e)
+    elif option=='3' :
+        print(g+"[*] 옵션 : 1,2 옵션이 결합됨"+e)
+        ipListLen = len(ipList)
+        for i in range(ipListLen) :
+            time.sleep(random.randrange(1,4))
+            selNum = random.randrange(0, len(ipList))
+            _ans, _unans = srp(Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst=ipList[selNum]), iface=interface, timeout=0.2)
+            if(_ans) : ans.append((_ans[0][0].pdst, _ans[0][1].src))
+            if(_unans) : unans.append(_unans[0].pdst)
+            del ipList[selNum]
+            if(i%10==0) : print(v+"[*] 현재 진행률 : "+str(int(i/ipListLen*100))+"%"+e)
     else : # No Option
         print(g+"[*] 기본 ARP Scanning"+e)
         ans, unans = srp(Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst=ipList), iface=interface, timeout=2)
