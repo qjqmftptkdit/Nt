@@ -27,3 +27,9 @@ option 3 : 1,2의 옵션이 결합됨
 ~~~bash
 python nt.py -s 1 -i eth0 -r 192.168.0.1/24 -o 2
 ~~~
+
+### 2. Arp-Spoofing
+python nt.py -a 1 -i \<Network InterFace> -t \<TargetIpAddress> -g \<GatewayIpAddress>
+~~~bash
+python nt.py -a 1 -i eth0 -t 192.168.111.3 -g 192.168.111.1
+~~~
