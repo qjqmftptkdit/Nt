@@ -1,4 +1,5 @@
-# Arp Scanning을 실행한다.
+# -*- coding: utf-8 -*- 
+#  Arp Scanning을 실행한다.
 def scan(interface, ipRange, option) :
     g = '\033[92m'
     e = '\033[0m'
@@ -84,4 +85,14 @@ def getIpList(ipRange) :
                     ipList.append(".".join(ip.split('.')[:-3]) + "." + str(i) + "." + str(j) + "." + str(z))   
 
     return ipList
+
+# 도움말을 출력한다.
+def help() :
+    print("nt.py -s 1 -i <Network InterFace> -r <Ip Range> [-o option]")
+    print("-o 없음 : 일반 ARP 스캐닝(DEFAULT)")
+    print("-o 1 : 1~3초간 랜덤으로 간격을 두고 보낸다.")
+    print("-o 2 : ip주소를 순서대로 보내지 않고, 무작위로 보낸다.")
+    print("-o 3 : 1,2의 옵션이 결합됨")
+    print("ex) nt.py -s 1 -i eth0 -r 192.168.111.1/24")
+
 
