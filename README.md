@@ -43,3 +43,11 @@ option 3 : 1,2의 옵션이 결합됨
 ~~~bash
 python nt.py -s 2 -i eth0 -r 67.210.233.1/24 -o 2
 ~~~
+
+### 4. TCP Connection Port Scanning
+python nt.py -s 3 -i \<Network InterFace> -t \<TargetIpAddress> [-p \<Port>]  
+-p 옵션 없음 : 자주 사용되는 포트를 중심으로 스캐닝  
+-p 옵션 : 22,80 이나 80-90 과 같이 특정 포트를 지정가능
+~~~bash
+python nt.py -s 3 -i eth0 -t 192.168.111.3 -p 10-30,80
+~~~
