@@ -4,6 +4,7 @@ import arpScan
 import arpSpoofing
 import icmpScan
 import portScan
+import sniff
 
 def main() :
     parser = argparse.ArgumentParser(description="nt.py [-s|-a] <TypeNum> [Options]")
@@ -16,6 +17,9 @@ def main() :
     parser.add_argument("-t", "--target", help="타겟 주소를 지정한다.")
     parser.add_argument("-g", "--gateway", help="게이트웨이 주소를 지정한다.")
     parser.add_argument("-p", "--port", help="스캔할 포트를 지정한다.")
+    parser.add_argument("-f", "--filter", help="필터링 문자열을 직접 입력한다.")
+    parser.add_argument("-k", "--kinds", help="필터링할 프로토콜의 종류를 입력한다.")
+    parser.add_argument("-e", "--extract", help="결과를 저장시킬 파일명을 입력한다.")
 
     args = parser.parse_args()
     if args.scantype==0 :
@@ -43,6 +47,11 @@ def main() :
             arpSpoofing.ArpSpoofing(args.interface, args.target, args.gateway).startArpSpoofing()
         else :
             arpSpoofing.help()
+    elif args.attacktype==2 :
+        if args.interface :
+            sniff.Sniff(args.interface, args.target, args.kinds, args.filter, args.extract).startSniff()
+        else :
+            sniff.help()
     else :
         print("nt.py [-s|-a] <TypeNum> [Options]")
 
@@ -55,6 +64,7 @@ def showScanType() :
 def showAttackType() :
     print("0 : 공격타입 목록 출력")
     print("1 : Arp Spoofing [LAN 전용]")
+    print("2 : Sniffing")
 
 if __name__ == "__main__" :
     main()
