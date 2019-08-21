@@ -24,7 +24,7 @@ python nt.py -s 1 -i \<Network Interface> -r \<Network Range> [-o \<Option>]
 option 없음 : 일반 ARP 스캐닝(DEFAULT)  
 option 1 : 1~3초간 랜덤으로 간격을 두고 보낸다.  
 option 2 : ip주소를 순서대로 보내지 않고, 무작위로 보낸다.  
-option 3 : 1,2의 옵션이 결합됨  
+option 3 : 1,2의 옵션이 결합됨.  
 ~~~bash
 python nt.py -s 1 -i eth0 -r 192.168.0.1/24 -o 2
 ~~~
@@ -56,8 +56,8 @@ python nt.py -a 1 -i eth0 -t 192.168.111.3 -g 192.168.111.1
 
 ### 2. Sniffing  
 nt.py -a 2 -i \<Network InterFace> [-t \<AddressToFilter>] [-k \<PorotocolToFilter>] [-f \<FilterString>] [-e \<FileNameToSave>]  
--t : 해당 Ip 주소가 포함된 패킷만 스니핑한다.
--k : 해당 프로토콜만 스니핑한다.
+-t : 해당 Ip 주소가 포함된 패킷만 스니핑한다.  
+-k : 해당 프로토콜만 스니핑한다.  
 -f : 직접 필터링을 위한 문자열을 적는다. (앞의 -t -k 인자가 무시됨)  
 -e : 해당 인자를 이름으로 해서 결과를 텍스트파일로 저장한다.  
 ~~~bash
